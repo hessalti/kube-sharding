@@ -19,6 +19,10 @@ spec:
       - name: sharding
         image: hesslee/sharding
         imagePullPolicy: Always
+        command:
+        - tail
+        - "-f"
+        - /dev/null
         ports:
         - containerPort: 20300
           protocol: TCP
