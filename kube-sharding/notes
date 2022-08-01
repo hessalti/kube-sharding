@@ -1,7 +1,11 @@
-## altibase_home.tgz을 만들어서 C:\Users\ALTIBASE\my-docker 에 복사해 놓음.
+## Prepare Altibase sharding package
+altibase_home.tgz을 만들어서 C:\Users\ALTIBASE\my-docker 에 복사해 놓음.
 linux-altibase> tar -cvzf altibase_home.tgz altibase_home
  
-## Docker Engine v20.10.17 installed in Windows OS
+## Test environment setup
+-- My Windows OS notebook
+-- Install Docker Engine v20.10.17
+
 ## base image로 centos:7 사용함.
 Windows-cmd> docker pull centos:7
 Windows-cmd> docker run -it -v C:\Users\ALTIBASE\my-docker:/data  centos:7   "/bin/bash"
@@ -40,8 +44,10 @@ Windows-cmd> docker build --tag hesslee/sharding .
 Windows-cmd> docker push hesslee/sharding
 
 ## Test environment setup
-## minikube install : version: v1.26.0
-## kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
+-- hess@192.168.1.107
+-- minikube install : version: v1.26.0
+-- kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
+
 minikube start --nodes 2 -p multinode-demo
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-svc.yaml
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-sts.yaml
