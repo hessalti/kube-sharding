@@ -1,7 +1,7 @@
 ## altibase_home.tgz을 만들어서 C:\Users\ALTIBASE\my-docker 에 복사해 놓음.
 linux-altibase> tar -cvzf altibase_home.tgz altibase_home
  
-## Windows 운영체제에 docker 설치함.
+## Docker Engine v20.10.17 installed in Windows OS
 ## base image로 centos:7 사용함.
 Windows-cmd> docker pull centos:7
 Windows-cmd> docker run -it -v C:\Users\ALTIBASE\my-docker:/data  centos:7   "/bin/bash"
