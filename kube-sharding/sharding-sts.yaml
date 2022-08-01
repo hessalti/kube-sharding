@@ -29,7 +29,7 @@ spec:
           mountPath: /home/altibase/altibase_home/logs
         - name: sharding-data-xlogs
           mountPath: /home/altibase/altibase_home/xlogs
-        - name: sharding-data-arch_logs
+        - name: sharding-data-arch-logs
           mountPath: /home/altibase/altibase_home/arch_logs
         - name: sharding-data-trc
           mountPath: /home/altibase/altibase_home/trc
@@ -59,7 +59,7 @@ spec:
         requests:
           storage: 1Gi
   - metadata:
-      name: sharding-data-arch_logs
+      name: sharding-data-arch-logs
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: sharding-storage
