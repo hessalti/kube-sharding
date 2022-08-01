@@ -51,9 +51,11 @@ Windows-cmd> docker push hesslee/sharding
 minikube start --nodes 2 -p multinode-demo
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-svc.yaml
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-sts.yaml
+## check sharding pods
+kubectl exec -it sharding-0 -- /bin/bash
 
-****** statefulset debugging : CrashLoopBackOff
-****** https://komodor.com/learn/how-to-fix-crashloopbackoff-kubernetes-error/
+****** problem : volumn root mount
+****** problem : no environment variable setting
 
 altibase> server create utf8 utf8
 ## 환경에 따라 필요한 경우가 있는것들... 
