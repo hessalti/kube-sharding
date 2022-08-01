@@ -39,7 +39,10 @@ WORKDIR /home/altibase
 Windows-cmd> docker build --tag hesslee/sharding .
 Windows-cmd> docker push hesslee/sharding
 
-## minikube 환경이고, kubectl은 별도로 설치했음.
+## Test environment setup
+## minikube install : version: v1.26.0
+## kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
+
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-svc.yaml
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-sts.yaml
 
