@@ -42,7 +42,7 @@ Windows-cmd> docker push hesslee/sharding
 ## Test environment setup
 ## minikube install : version: v1.26.0
 ## kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
-
+minikube start --nodes 2 -p multinode-demo
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-svc.yaml
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-sts.yaml
 
