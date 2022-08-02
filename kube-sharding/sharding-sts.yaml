@@ -31,7 +31,7 @@ spec:
           protocol: TCP
         env:
           - name: ALTIBASE_HOME
-            value: /home/altibase/altibase_home
+            value: "/home/altibase/altibase_home"
           - name: ALTIBASE_PORT_NO
             value: 20300
           - name: ALTIBASE_NLS_USE
