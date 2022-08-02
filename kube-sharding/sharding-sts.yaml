@@ -15,9 +15,6 @@ spec:
       labels:
         app: sharding
     spec:
-      securityContext:
-        runAsUser: 1000
-        fsGroup: 1000
       containers:
       - name: sharding
         image: hesslee/sharding
@@ -29,19 +26,6 @@ spec:
         ports:
         - containerPort: 20300
           protocol: TCP
-        env:
-          #- name: ALTIBASE_HOME
-          #  value: "/home/altibase/altibase_home"
-          #- name: ALTIBASE_PORT_NO
-          #  value: 20300
-          #- name: ALTIBASE_NLS_USE
-          #  value: UTF8
-          #- name: PATH
-          #  value: "$ALTIBASE_HOME/bin:$PATH"
-          #- name: LD_LIBRARY_PATH
-          #  value: "${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH}"
-          #- name: CLASSPATH
-          #  value: "${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}"
         volumeMounts:
         - name: sharding-data-dbs
           mountPath: /home/altibase/altibase_home/dbs
@@ -53,6 +37,16 @@ spec:
           mountPath: /home/altibase/altibase_home/arch_logs
         - name: sharding-data-trc
           mountPath: /home/altibase/altibase_home/trc
+        - name: config
+          mountPath: /home/altibase/config
+          readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: sharding-config
+            items:
+            - key: "set_altibase.env"
+              path: "set_altibase.env"
   volumeClaimTemplates:
   - metadata:
       name: sharding-data-dbs
@@ -94,9 +88,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
----
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name:  shared-storage
-provisioner: k8s.io/minikube-hostpath
+
