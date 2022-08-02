@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sharding-config
+data:
+  set_altibase.env: |
+    export ALTIBASE_HOME=/home/altibase/altibase_home
+    export ALTIBASE_NLS_USE=UTF8
+    export ALTIBASE_PORT_NO=20300
+    export DB_SIZE=10 #init Memory DB Size (Mbyte)
+    export DB_CHARSET=UTF8
+    export USER_ID=sys
+    export USER_PASSWD=manager
+    # ARCH_MODE: "NOARCHIVELOG" or "ARCHIVELOG"
+    export ARCH_MODE="NOARCHIVELOG"
+    export NATIONAL_CHARSET=UTF8
+    export PATH=${ALTIBASE_HOME}/bin:${PATH}
+    export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
+    export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
