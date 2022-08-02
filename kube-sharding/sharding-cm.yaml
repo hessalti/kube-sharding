@@ -19,3 +19,4 @@ data:
     export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
   entrypoint.sh: |
     xxxxxxxxxxxxxxxxxxxxxxx
+    yyyyyyyyyyyy
