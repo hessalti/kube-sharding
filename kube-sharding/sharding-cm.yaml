@@ -17,3 +17,5 @@ data:
     export PATH=${ALTIBASE_HOME}/bin:${PATH}
     export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
     export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
+  entrypoint.sh: |
+    xxxxxxxxxxxxxxxxxxxxxxx
