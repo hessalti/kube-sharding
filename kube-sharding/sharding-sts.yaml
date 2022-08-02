@@ -47,8 +47,10 @@ spec:
             items:
             - key: "set_altibase.env"
               path: "set_altibase.env"
-            - key: "entrypoint.sh"
-              path: "entrypoint.sh"
+            - key: "base_schema.sql"
+              path: "base_schema.sql"
+            - key: "entry_point.sh"
+              path: "entry_point.sh"
   volumeClaimTemplates:
   - metadata:
       name: sharding-data-dbs
