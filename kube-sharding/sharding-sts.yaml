@@ -36,12 +36,12 @@ spec:
             value: 20300
           - name: ALTIBASE_NLS_USE
             value: UTF8
-          - name: PATH
-            value: "$ALTIBASE_HOME/bin:$PATH"
-          - name: LD_LIBRARY_PATH
-            value: "${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH}"
-          - name: CLASSPATH
-            value: "${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}"
+          #- name: PATH
+          #  value: "$ALTIBASE_HOME/bin:$PATH"
+          #- name: LD_LIBRARY_PATH
+          #  value: "${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH}"
+          #- name: CLASSPATH
+          #  value: "${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH}"
         volumeMounts:
         - name: sharding-data-dbs
           mountPath: /home/altibase/altibase_home/dbs
