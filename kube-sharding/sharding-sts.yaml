@@ -32,10 +32,10 @@ spec:
         env:
           #- name: ALTIBASE_HOME
           #  value: "/home/altibase/altibase_home"
-          - name: ALTIBASE_PORT_NO
-            value: 20300
-          - name: ALTIBASE_NLS_USE
-            value: UTF8
+          #- name: ALTIBASE_PORT_NO
+          #  value: 20300
+          #- name: ALTIBASE_NLS_USE
+          #  value: UTF8
           #- name: PATH
           #  value: "$ALTIBASE_HOME/bin:$PATH"
           #- name: LD_LIBRARY_PATH
@@ -49,7 +49,7 @@ spec:
           mountPath: /home/altibase/altibase_home/logs
         - name: sharding-data-xlogs
           mountPath: /home/altibase/altibase_home/xlogs
-        - name: sharding-data-arch-logs
+        - name: sharding-data-archlogs
           mountPath: /home/altibase/altibase_home/arch_logs
         - name: sharding-data-trc
           mountPath: /home/altibase/altibase_home/trc
@@ -79,7 +79,7 @@ spec:
         requests:
           storage: 1Gi
   - metadata:
-      name: sharding-data-arch-logs
+      name: sharding-data-archlogs
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: shared-storage
