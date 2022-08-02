@@ -9,14 +9,42 @@ data:
     export ALTIBASE_PORT_NO=20300
     export DB_SIZE=10 #init Memory DB Size (Mbyte)
     export DB_CHARSET=UTF8
-    export USER_ID=sys
-    export USER_PASSWD=manager
+    export SYS_USER_ID=sys
+    export SYS_USER_PASSWD=manager
     # ARCH_MODE: "NOARCHIVELOG" or "ARCHIVELOG"
     export ARCH_MODE="NOARCHIVELOG"
     export NATIONAL_CHARSET=UTF8
     export PATH=${ALTIBASE_HOME}/bin:${PATH}
     export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
     export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
-  entrypoint.sh: |
-    xxxxxxxxxxxxxxxxxxxxxxx
-    yyyyyyyyyyyy
+  base_schema.sql: |
+    drop table t1 cascade;
+    drop table _bak_t1 cascase;
+    create table t1(c1 int);
+  entry_point.sh: |
+    #!/bin/bash
+    . ./set_altibase.env
+    function db_create()
+    {
+        if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
+        then
+            ADMIN="${ALTIBASE_HOME}/bin/isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt"
+            ${ADMIN} << EOF
+                startup process;
+                CREATE DATABASE mydb INITSIZE=${DB_SIZE}M ${ARCH_MODE} CHARACTER SET ${DB_CHARSET} NATIONAL CHARACTER SET ${NATIONAL_CHARSET};
+                shutdown abort;
+                quit
+            EOF
+        fi
+    }
+ 
+    prepare_main()
+    {
+        db_create
+        server start
+        is -silent -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f /altibase/altibase_home/config/base_schema.sql
+ 
+        tail -f /dev/null
+    }
+ 
+    prepare_main $@
