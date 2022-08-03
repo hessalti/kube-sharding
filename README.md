@@ -7,10 +7,10 @@ Test environment setup
   - Install Docker Engine v20.10.17
 
 Build docker image
-'''
+```
 docker-working-directory> set DOCKER_BUILDKIT=0
 docker-working-directory> docker build --tag hesslee/sharding https://github.com/hessalti/kube-sharding.git#main:docker
-'''
+```
 
 # Check built image
 Windows-cmd> docker run -it -v C:\Users\ALTIBASE\my-docker:/data  hesslee/sharding   "/bin/bash"
