@@ -1,16 +1,24 @@
 FROM centos:7
+
 MAINTAINER Hess Lee <hess.lee@altibase.com>
+
 RUN mkdir /home/altibase
 ENV HOME=/home/altibase
 WORKDIR /home/altibase
+
 COPY altibase_home.tgz .
 RUN tar -xvzf altibase_home.tgz
-#RUN rm /home/altibase/altibase_home.tgz
-#RUN cp /home/altibase/altibase_home/conf/altibase.properties.shard /home/altibase/altibase_home/conf/altibase.properties
-#RUN rm -rf /home/altibase/altibase_home/dbs
-#RUN rm -rf /home/altibase/altibase_home/logs
-#RUN rm -rf /home/altibase/altibase_home/xlogs
-#RUN rm -rf /home/altibase/altibase_home/arch_logs
-#RUN rm -rf /home/altibase/altibase_home/trc
-#RUN rm -rf /home/altibase/altibase_home/ZookeeperServer.tar.gz
-#RUN rm -rf /home/altibase/altibase_home/ZookeeperServer/apache-zookeeper-3.5.6-bin.tar.gz
+
+RUN cp altibase_home/conf/altibase.properties.shard altibase_home/conf/altibase.properties
+
+# remove directory for volume mount
+RUN rm -rf altibase_home/dbs
+RUN rm -rf altibase_home/logs
+RUN rm -rf altibase_home/xlogs
+RUN rm -rf altibase_home/arch_logs
+RUN rm -rf altibase_home/trc
+
+# remove unnecessary files
+RUN rm altibase_home.tgz
+RUN rm -rf altibase_home/ZookeeperServer.tar.gz
+RUN rm -rf altibase_home/ZookeeperServer/apache-zookeeper-3.5.6-bin.tar.gz
