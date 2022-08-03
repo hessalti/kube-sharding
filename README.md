@@ -33,7 +33,7 @@ linux> kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding
 Check sharding pods
 ```
 kubectl exec -it sharding-0 -- /bin/bash
-kubectl exec -it sharding-2 -- /bin/bash
+kubectl exec -it sharding-1 -- /bin/bash
 ```
 
 Problems
