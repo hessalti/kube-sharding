@@ -1,23 +1,22 @@
-Prepare Altibase sharding package
-- Copy altibase_home.tgz to docker working directory
-
-
 Test environment setup
+- Linux server
+  - hess@192.168.1.107
+  - minikube install : version: v1.26.0
+  - kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
 - My Windows OS PC
-- Install Docker Engine v20.10.17
+  - Install Docker Engine v20.10.17
 
-
-## Refer Dockerfile : 
-docker-working-directory> docker build --tag hesslee/sharding .
+Build docker image
+'''
+docker-working-directory> set DOCKER_BUILDKIT=0
+docker-working-directory> docker build --tag hesslee/sharding https://github.com/hessalti/kube-sharding.git#main:docker
+'''
 
 # Check built image
 Windows-cmd> docker run -it -v C:\Users\ALTIBASE\my-docker:/data  hesslee/sharding   "/bin/bash"
 Windows-cmd> docker push hesslee/sharding
 
 ## Test environment setup
--- hess@192.168.1.107
--- minikube install : version: v1.26.0
--- kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
 
 minikube start --nodes 2 -p multinode-demo
 kubectl apply -f https://raw.githubusercontent.com/hessalti/work/main/kube-sharding/sharding-svc.yaml
