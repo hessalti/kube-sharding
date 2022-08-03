@@ -5,7 +5,7 @@ ENV HOME=/home/altibase
 SHELL ["/bin/bash"]
 WORKDIR /home/altibase
 COPY altibase_home.tgz .
-RUN mv altibase_home.tgz abc
+RUN ls altibase_home.tgz
 RUN tar -xvzf abc
 #RUN rm /home/altibase/altibase_home.tgz
 #RUN cp /home/altibase/altibase_home/conf/altibase.properties.shard /home/altibase/altibase_home/conf/altibase.properties
