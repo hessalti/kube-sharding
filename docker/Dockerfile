@@ -6,7 +6,7 @@ RUN mkdir /home/altibase
 ENV HOME=/home/altibase
 WORKDIR /home/altibase
 
-COPY altibase_home.tgz.s* .
+COPY altibase_home.tgz.s* ./
 RUN cat altibase_home.tgz.s* > altibase_home.tgz
 RUN tar -xvzf altibase_home.tgz
 
