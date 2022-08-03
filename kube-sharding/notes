@@ -42,6 +42,8 @@ USER altibase
 WORKDIR /home/altibase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Windows-cmd> docker build --tag hesslee/sharding .
+# Check built image
+Windows-cmd> docker run -it -v C:\Users\ALTIBASE\my-docker:/data  hesslee/sharding   "/bin/bash"
 Windows-cmd> docker push hesslee/sharding
 
 ## Test environment setup
