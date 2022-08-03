@@ -1,9 +1,9 @@
-## Prepare Altibase sharding package
-Copy altibase_home.tgz to docker working directory
+Prepare Altibase sharding package
+- Copy altibase_home.tgz to docker working directory
  
-## Test environment setup
--- My Windows OS PC
--- Install Docker Engine v20.10.17
+Test environment setup
+- My Windows OS PC
+- Install Docker Engine v20.10.17
 
 ## Refer Dockerfile : 
 docker-working-directory> docker build --tag hesslee/sharding .
