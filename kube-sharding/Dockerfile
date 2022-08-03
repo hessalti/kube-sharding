@@ -4,8 +4,8 @@ RUN mkdir /home/altibase
 ENV HOME=/home/altibase
 SHELL ["/bin/bash"]
 WORKDIR /home/altibase
-COPY altibase_home.tgzzz /home/altibase
-RUN tar -xvzf /home/altibase/altibase_home.tgz
+COPY altibase_home.tgz /home/altibase
+RUN tar 
 RUN rm /home/altibase/altibase_home.tgz
 RUN cp /home/altibase/altibase_home/conf/altibase.properties.shard /home/altibase/altibase_home/conf/altibase.properties
 RUN rm -rf /home/altibase/altibase_home/dbs
