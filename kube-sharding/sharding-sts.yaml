@@ -20,9 +20,7 @@ spec:
         image: hesslee/sharding
         imagePullPolicy: Always
         command:
-        - tail
-        - "-f"
-        - /dev/null
+        - /home/altibase/altibase_home/config_map/entry_point.sh
         ports:
         - containerPort: 20300
           protocol: TCP
@@ -38,7 +36,7 @@ spec:
         - name: sharding-data-trc
           mountPath: /home/altibase/altibase_home/trc
         - name: config
-          mountPath: /home/altibase/config
+          mountPath: /home/altibase/altibase_home/config_map
           readOnly: true
       volumes:
         - name: config
