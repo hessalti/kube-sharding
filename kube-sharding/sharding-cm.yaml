@@ -20,7 +20,7 @@ data:
     
   base_schema.sql: |
     drop table t1 cascade;
-    drop table _bak_t1 cascase;
+    drop table _bak_t1 cascade;
     create table t1(c1 int);
     
   entry_point.sh: |
