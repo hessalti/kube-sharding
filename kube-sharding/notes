@@ -35,6 +35,7 @@ Windows-cmd> docker commit c7981429bc36 sharding:temporary
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 FROM sharding:temporary
 MAINTAINER Hess Lee <hess.lee@altibase.com>
+******* RUN mkdir /home/altibase
 ENV HOME=/home/altibase
 SHELL ["/bin/bash"]
 USER altibase
