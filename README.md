@@ -2,6 +2,7 @@
 - https://github.com/hessalti/kube-sharding
   - account : hessalti
   - repository : kube-sharding
+  - To avoid github.com 25MB file size limit, altibase_home.tgz file is split into multiple files.
 - https://hub.docker.com/r/hesslee/sharding
   - account : hesslee
   - repository : sharding
