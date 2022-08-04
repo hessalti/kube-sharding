@@ -21,8 +21,8 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
-                operator: Exists
-                #operator: DoesNotExist
+                operator: DoesNotExist
+                #operator: Exists
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
