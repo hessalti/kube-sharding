@@ -20,7 +20,9 @@ spec:
         image: hesslee/sharding
         imagePullPolicy: Always
         command:
-        - "tail -f /dev/null"
+        - tail
+        - "-f"
+        - /dev/null
         #- /home/altibase/altibase_home/config_map/entry_point.sh
         ports:
         - containerPort: 20300
