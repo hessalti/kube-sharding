@@ -1,16 +1,16 @@
 ### Test environment setup
+- https://github.com/hessalti/kube-sharding
+  - account : hessalti
+  - repository : kube-sharding
+- https://hub.docker.com/r/hesslee/sharding
+  - account : hesslee
+  - repository : sharding
 - Linux server
   - hess@192.168.1.107
   - minikube install : version: v1.26.0
   - kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
 - My Windows OS PC
   - Install Docker Engine v20.10.17
-- https://hub.docker.com
-  - account : hesslee
-  - repository : sharding
-- https://github.com
-  - account : hessalti
-  - repository : kube-sharding
 
 ### Build docker image
 ```
