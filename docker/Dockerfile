@@ -9,7 +9,7 @@ USER root
 
 COPY altibase_home.tgz.s* ./
 RUN cat altibase_home.tgz.s* > altibase_home.tgz
-RUN tar -xvzf altibase_home.tgz
+RUN tar --no-same-owner -xvzf altibase_home.tgz
 
 RUN cp altibase_home/conf/altibase.properties.shard altibase_home/conf/altibase.properties
 
