@@ -15,6 +15,23 @@ spec:
       labels:
         app: sharding
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: !node-role.kubernetes.io/control-plane
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - sharding
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: sharding
         image: hesslee/sharding
