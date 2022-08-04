@@ -5,6 +5,7 @@ MAINTAINER Hess Lee <hess.lee@altibase.com>
 RUN mkdir /home/altibase
 ENV HOME=/home/altibase
 WORKDIR /home/altibase
+USER root
 
 COPY altibase_home.tgz.s* ./
 RUN cat altibase_home.tgz.s* > altibase_home.tgz
