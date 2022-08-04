@@ -20,10 +20,12 @@ spec:
         image: hesslee/sharding
         imagePullPolicy: Always
         command:
-        - tail
-        - "-f"
-        - /dev/null
-        #- /home/altibase/altibase_home/config_map/entry_point.sh
+        #- tail
+        #- "-f"
+        #- /dev/null
+        - /bin/bash
+        - "-c"
+        - /home/altibase/altibase_home/config_map/entry_point.sh
         ports:
         - containerPort: 20300
           protocol: TCP
@@ -45,6 +47,7 @@ spec:
         - name: config
           configMap:
             name: sharding-config
+            defaultMode: 0777
             items:
             - key: "set_altibase.env"
               path: "set_altibase.env"
