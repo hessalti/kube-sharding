@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: sharding
+  name: zookeeper
   labels:
-    app: sharding
+    app: zookeeper
 spec:
-  serviceName: sharding
-  replicas: 2
+  serviceName: zookeeper
+  replicas: 1
   selector:
     matchLabels:
-      app: sharding
+      app: zookeeper
   template:
     metadata:
       labels:
-        app: sharding
+        app: zookeeper
     spec:
       affinity:
         nodeAffinity:
@@ -21,21 +21,18 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
-                operator: DoesNotExist
-                #operator: Exists
+                operator: Exists
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
                 matchExpressions:
                   - key: "app"
                     operator: In
                     values:
-                    - sharding
+                    - zookeeper
               topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: sharding
+      - name: zookeeper
         image: hesslee/sharding
         imagePullPolicy: Always
         command:
@@ -49,69 +46,15 @@ spec:
         - containerPort: 20300
           protocol: TCP
         volumeMounts:
-        - name: sharding-data-dbs
-          mountPath: /home/altibase/altibase_home/dbs
-        - name: sharding-data-logs
-          mountPath: /home/altibase/altibase_home/logs
-        - name: sharding-data-xlogs
-          mountPath: /home/altibase/altibase_home/xlogs
-        - name: sharding-data-archlogs
-          mountPath: /home/altibase/altibase_home/arch_logs
-        - name: sharding-data-trc
-          mountPath: /home/altibase/altibase_home/trc
-        - name: config
-          mountPath: /home/altibase/altibase_home/config_map
-          readOnly: true
-      volumes:
-        - name: config
-          configMap:
-            name: sharding-config
-            defaultMode: 0777
-            items:
-            - key: "set_altibase.env"
-              path: "set_altibase.env"
-            - key: "base_schema.sql"
-              path: "base_schema.sql"
-            - key: "entry_point.sh"
-              path: "entry_point.sh"
+        - name: sharding-data-zkdatadir
+          mountPath: /home/altibase/altibase_home/ZookeeperServer/datadir
+
   volumeClaimTemplates:
   - metadata:
-      name: sharding-data-dbs
+      name: sharding-data-zkdatadir
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: shared-storage
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: sharding-data-logs
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: shared-storage
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: sharding-data-xlogs
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: shared-storage
-      resources:
-        requests:
-          storage: 100Mi
-  - metadata:
-      name: sharding-data-archlogs
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: shared-storage
-      resources:
-        requests:
-          storage: 100Mi
-  - metadata:
-      name: sharding-data-trc
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: shared-storage
+      storageClassName: external-storage
       resources:
         requests:
           storage: 100Mi
