@@ -25,7 +25,7 @@ data:
     
   entry_point.sh: |
     #!/bin/bash
-    . ${ALTIBASE_HOME}/config_map/set_altibase.env
+    . /home/altibase/altibase_home/config_map/set_altibase.env
     function db_create()
     {
         if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
