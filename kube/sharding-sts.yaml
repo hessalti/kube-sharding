@@ -20,7 +20,8 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - !node-role.kubernetes.io/control-plane
+              - key: !node-role.kubernetes.io/control-plane
+                operator: Exists
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
