@@ -97,7 +97,7 @@ spec:
       storageClassName: shared-storage
       resources:
         requests:
-          storage: 1Gi
+          storage: 100Mi
   - metadata:
       name: sharding-data-archlogs
     spec:
@@ -105,7 +105,7 @@ spec:
       storageClassName: shared-storage
       resources:
         requests:
-          storage: 1Gi
+          storage: 100Mi
   - metadata:
       name: sharding-data-trc
     spec:
@@ -113,5 +113,5 @@ spec:
       storageClassName: shared-storage
       resources:
         requests:
-          storage: 1Gi
+          storage: 100Mi
 
