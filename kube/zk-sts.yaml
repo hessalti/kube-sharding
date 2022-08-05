@@ -59,26 +59,26 @@ spec:
         - /bin/bash
         - "-c"
         - /home/altibase/altibase_home/ZookeeperServer/config_map/entry_point.sh
-        #readinessProbe:
-        #  exec:
-        #    command:
-        #    - sh
-        #    - -c
-        #    - "/home/altibase/altibase_home/ZookeeperServer/config_map/zk-ready.sh 2181"
-        #  initialDelaySeconds: 10
-        #  periodSeconds: 10
-        #  timeoutSeconds: 5
-        #  failureThreshold: 3
-        #livenessProbe:
-        #  exec:
-        #    command:
-        #    - sh
-        #    - -c
-        #    - "/home/altibase/altibase_home/ZookeeperServer/config_map/zk-ready.sh 2181"
-        #  initialDelaySeconds: 10
-        #  periodSeconds: 10
-        #  timeoutSeconds: 5
-        #  failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "/home/altibase/altibase_home/ZookeeperServer/config_map/zk-ready.sh 2181"
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "/home/altibase/altibase_home/ZookeeperServer/config_map/zk-ready.sh 2181"
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         volumeMounts:
         - name: zk-data
           mountPath: /home/altibase/altibase_home/ZookeeperServer/data
