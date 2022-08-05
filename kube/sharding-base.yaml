@@ -1,3 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name:  external-storage
+provisioner: k8s.io/minikube-hostpath
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -10,3 +18,6 @@ spec:
   - port: 20300
   selector:
     app: sharding
+
+---
+
