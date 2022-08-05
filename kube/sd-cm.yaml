@@ -4,6 +4,7 @@ metadata:
   name: sd-cm
 data:
   set_altibase.env: |
+    export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.342.b07-1.el7_9.x86_64/jre
     export ALTIBASE_HOME=/home/altibase/altibase_home
     export ALTIBASE_NLS_USE=UTF8
     export ALTIBASE_PORT_NO=20300
