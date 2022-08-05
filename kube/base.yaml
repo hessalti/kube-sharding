@@ -36,7 +36,9 @@ spec:
     name: leader-election
   selector:
     app: zk
+    
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -49,7 +51,9 @@ spec:
     name: client
   selector:
     app: zk
+    
 ---
+
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
