@@ -2,6 +2,9 @@ FROM centos:7
 
 MAINTAINER Hess Lee <hess.lee@altibase.com>
 
+RUN yum -y update
+RUN yum -y install java-1.8.0-openjdk
+
 RUN mkdir /home/altibase
 ENV HOME=/home/altibase
 WORKDIR /home/altibase
