@@ -9,9 +9,9 @@ provisioner: k8s.io/minikube-hostpath
 apiVersion: v1
 kind: Service
 metadata:
+  name: sharding
   labels:
     app: sharding
-  name: sharding
 spec:
   clusterIP: None
   ports:
@@ -21,3 +21,41 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-hs
+  labels:
+    app: zookeeper
+spec:
+  ports:
+  - port: 2888
+    name: server
+  - port: 3888
+    name: leader-election
+  clusterIP: None
+  selector:
+    app: zookeeper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-cs
+  labels:
+    app: zookeeper
+spec:
+  ports:
+  - port: 2181
+    name: client
+  selector:
+    app: zookeeper
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: zookeeper-pdb
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper
+  maxUnavailable: 1 # floor(number of zookeeper replicas)
