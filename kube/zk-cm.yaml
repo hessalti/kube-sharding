@@ -29,7 +29,7 @@ data:
 
     cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
 
-    idx=${HONAME##*-}
+    idx=${HOSTNAME##*-}
     idxPlus=$(($idx + 1))
     echo ${idxPlus} > ${ALTIBASE_HOME}/ZookeeperServer/data/myid
 
