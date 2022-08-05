@@ -5,8 +5,8 @@ metadata:
 data:
   zoo.cfg: |
     clientPort=2181
-    dataDir=/home/altibase/ZookeeperServer/data
-    dataLogDir=/home/altibase/ZookeeperServer/log
+    dataDir=/home/altibase/altibase_home/ZookeeperServer/data
+    dataLogDir=/home/altibase/altibase_home/ZookeeperServer/log
     tickTime=2000
     initLimit=10
     syncLimit=2000
@@ -24,10 +24,10 @@ data:
     
   entry_point.sh: |
     #!/bin/bash
-    cp /home/altibase/ZookeeperServer/config_map/zoo.cfg /home/altibase/ZookeeperServer/conf/zoo.cfg
+    cp /home/altibase/altibase_home/ZookeeperServer/config_map/zoo.cfg /home/altibase/altibase_home/ZookeeperServer/conf/zoo.cfg
 
     idx=${HONAME##*-}
     idxPlus=$(($idx + 1))
-    echo ${idxPlus} > /home/altibase/ZookeeperServer/data/myid
+    echo ${idxPlus} > /home/altibase/altibase_home/ZookeeperServer/data/myid
     
     tail -f /dev/null
