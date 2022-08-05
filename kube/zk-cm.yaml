@@ -25,5 +25,9 @@ data:
   entry_point.sh: |
     #!/bin/bash
     cp /home/altibase/ZookeeperServer/config_map/zoo.cfg /home/altibase/ZookeeperServer/conf/zoo.cfg
-     
+
+    idx=${HONAME##*-}
+    idxPlus=$(($idx + 1))
+    echo ${idxplus} > /home/altibase/ZookeeperServer/data/myid
+    
     tail -f /dev/null
