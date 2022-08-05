@@ -1,38 +1,40 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: zookeeper
+  name: zk
   labels:
-    app: zookeeper
+    app: zk
 spec:
-  serviceName: zookeeper
-  replicas: 1
+  serviceName: zk-hs
+  replicas: 3
   selector:
     matchLabels:
-      app: zookeeper
+      app: zk
   template:
     metadata:
       labels:
-        app: zookeeper
+        app: zk
     spec:
       affinity:
+        # This part should be removed in production environment
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: node-role.kubernetes.io/control-plane
                 operator: Exists
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"
-                    operator: In
-                    values:
-                    - zookeeper
-              topologyKey: "kubernetes.io/hostname"
+        # This part should be uncommented in production environment
+        #podAntiAffinity:
+        #  requiredDuringSchedulingIgnoredDuringExecution:
+        #    - labelSelector:
+        #        matchExpressions:
+        #          - key: "app"
+        #            operator: In
+        #            values:
+        #            - zk
+        #      topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: zookeeper
+      - name: zk
         image: hesslee/sharding
         imagePullPolicy: Always
         command:
