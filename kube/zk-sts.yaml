@@ -65,7 +65,9 @@ spec:
             - -c
             - "zk-ready 2181"
           initialDelaySeconds: 10
+          periodSeconds: 10
           timeoutSeconds: 5
+          failureThreshold: 3
         livenessProbe:
           exec:
             command:
@@ -73,7 +75,9 @@ spec:
             - -c
             - "zk-ready 2181"
           initialDelaySeconds: 10
+          periodSeconds: 10
           timeoutSeconds: 5
+          failureThreshold: 3
         volumeMounts:
         - name: zk-data
           mountPath: /home/altibase/altibase_home/ZookeeperServer/data
