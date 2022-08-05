@@ -14,7 +14,7 @@ data:
     server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
     server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
-  zookeeper-ready.sh: |
+  zk-ready.sh: |
     OK=$(echo ruok | nc 127.0.0.1 $1)
     if [ "$OK" == "imok" ]; then
         exit 0
