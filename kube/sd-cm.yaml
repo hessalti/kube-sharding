@@ -27,6 +27,8 @@ data:
   entry_point.sh: |
     #!/bin/bash
     . /home/altibase/altibase_home/config_map/set_altibase.env
+    cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
+
     function db_create()
     {
         if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
