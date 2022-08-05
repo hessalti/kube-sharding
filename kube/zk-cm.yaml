@@ -31,7 +31,7 @@ data:
 
     idx=${HONAME##*-}
     idxPlus=$(($idx + 1))
-    echo ${idxPlus} > /home/altibase/altibase_home/ZookeeperServer/data/myid
+    echo ${idxPlus} > ${ALTIBASE_HOME}/ZookeeperServer/data/myid
     
     ${ALTIBASE_HOME}/ZookeeperServer/bin/zkServer.sh --config ${ALTIBASE_HOME}/ZookeeperServer/conf start"
     
