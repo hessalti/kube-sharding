@@ -40,10 +40,11 @@ spec:
       - name: sd
         image: hesslee/sharding
         imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "2"
+        # This part need to be considered in production environment
+        #resources:
+        #  requests:
+        #    memory: "1Gi"
+        #    cpu: "2"
         command:
         #- tail
         #- "-f"
