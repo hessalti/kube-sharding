@@ -55,23 +55,19 @@ spec:
         - containerPort: 20300
           protocol: TCP
         readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
+          tcpSocket:
+            port: 20300
           initialDelaySeconds: 10
           periodSeconds: 5
-          timeoutSeconds: 4
+          timeoutSeconds: 2
+          failureThreshold: 3
         livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - "zookeeper-ready 2181"
+          tcpSocket:
+            port: 20300
           initialDelaySeconds: 10
           periodSeconds: 5
-          timeoutSeconds: 4
+          timeoutSeconds: 2
+          failureThreshold: 3
         volumeMounts:
         - name: sd-dbs
           mountPath: /home/altibase/altibase_home/dbs
