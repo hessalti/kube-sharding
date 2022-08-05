@@ -43,17 +43,42 @@ spec:
         #- /dev/null
         - /bin/bash
         - "-c"
-        - /home/altibase/altibase_home/config_map/entry_point.sh
+        - /home/altibase/altibase_home/ZookeeperServer/config_map/entry_point.sh
         ports:
         - containerPort: 20300
           protocol: TCP
         volumeMounts:
-        - name: sharding-data-zkdatadir
-          mountPath: /home/altibase/altibase_home/ZookeeperServer/datadir
+        - name: zk-data
+          mountPath: /home/altibase/altibase_home/ZookeeperServer/data
+        - name: zk-log
+          mountPath: /home/altibase/altibase_home/ZookeeperServer/log
+        - name: zk-cm
+          mountPath: /home/altibase/altibase_home/ZookeeperServer/config_map
+          readOnly: true
+      volumes:
+        - name: zk-cm
+          configMap:
+            name: zk-cm
+            defaultMode: 0777
+            items:
+            - key: "zoo.cfg"
+              path: "zoo.cfg"
+            - key: "zookeeper-ready.sh"
+              path: "zookeeper-ready.sh"
+            - key: "entry_point.sh"
+              path: "entry_point.sh"
 
   volumeClaimTemplates:
   - metadata:
-      name: sharding-data-zkdatadir
+      name: zk-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: external-storage
+      resources:
+        requests:
+          storage: 100Mi
+  - metadata:
+      name: zk-log
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
