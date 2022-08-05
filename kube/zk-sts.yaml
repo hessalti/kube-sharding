@@ -43,7 +43,7 @@ spec:
         resources:
           requests:
             memory: "100Mi"
-            cpu: "0.5"
+            cpu: "2"
         ports:
         - containerPort: 2181
           name: client
