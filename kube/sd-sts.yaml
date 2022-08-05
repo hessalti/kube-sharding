@@ -1,19 +1,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: sharding
+  name: sd
   labels:
-    app: sharding
+    app: sd
 spec:
-  serviceName: sharding
+  serviceName: sd
   replicas: 2
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: OrderedReady
   selector:
     matchLabels:
-      app: sharding
+      app: sd
   template:
     metadata:
       labels:
-        app: sharding
+        app: sd
     spec:
       affinity:
         nodeAffinity:
@@ -31,12 +34,16 @@ spec:
                   - key: "app"
                     operator: In
                     values:
-                    - sharding
+                    - sd
               topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: sharding
+      - name: sd
         image: hesslee/sharding
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "2"
         command:
         #- tail
         #- "-f"
@@ -47,24 +54,43 @@ spec:
         ports:
         - containerPort: 20300
           protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
         volumeMounts:
-        - name: sharding-data-dbs
+        - name: sd-dbs
           mountPath: /home/altibase/altibase_home/dbs
-        - name: sharding-data-logs
+        - name: sd-logs
           mountPath: /home/altibase/altibase_home/logs
-        - name: sharding-data-xlogs
+        - name: sd-xlogs
           mountPath: /home/altibase/altibase_home/xlogs
-        - name: sharding-data-archlogs
+        - name: sd-archlogs
           mountPath: /home/altibase/altibase_home/arch_logs
-        - name: sharding-data-trc
+        - name: sd-trc
           mountPath: /home/altibase/altibase_home/trc
-        - name: config
+        - name: sd-cm
           mountPath: /home/altibase/altibase_home/config_map
           readOnly: true
+        - name: zk-cm
+          mountPath: /home/altibase/altibase_home/ZookeeperServer/config_map
+          readOnly: true
       volumes:
-        - name: config
+        - name: sd-cm
           configMap:
-            name: sharding-config
+            name: sd-cm
             defaultMode: 0777
             items:
             - key: "set_altibase.env"
@@ -73,9 +99,16 @@ spec:
               path: "base_schema.sql"
             - key: "entry_point.sh"
               path: "entry_point.sh"
+        - name: zk-cm
+          configMap:
+            name: zk-cm
+            defaultMode: 0777
+            items:
+            - key: "zoo.cfg"
+              path: "zoo.cfg"
   volumeClaimTemplates:
   - metadata:
-      name: sharding-data-dbs
+      name: sd-dbs
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
@@ -83,7 +116,7 @@ spec:
         requests:
           storage: 1Gi
   - metadata:
-      name: sharding-data-logs
+      name: sd-logs
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
@@ -91,7 +124,7 @@ spec:
         requests:
           storage: 1Gi
   - metadata:
-      name: sharding-data-xlogs
+      name: sd-xlogs
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
@@ -99,7 +132,7 @@ spec:
         requests:
           storage: 100Mi
   - metadata:
-      name: sharding-data-archlogs
+      name: sd-archlogs
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
@@ -107,7 +140,7 @@ spec:
         requests:
           storage: 100Mi
   - metadata:
-      name: sharding-data-trc
+      name: sd-trc
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
