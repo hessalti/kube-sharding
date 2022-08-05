@@ -63,7 +63,7 @@ spec:
             command:
             - sh
             - -c
-            - "zk-ready.sh 2181"
+            - "/home/altibase/altibase_home/ZookeeperServer/config_map/zk-ready.sh 2181"
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 5
@@ -73,7 +73,7 @@ spec:
             command:
             - sh
             - -c
-            - "zk-ready.sh 2181"
+            - "/home/altibase/altibase_home/ZookeeperServer/config_map/zk-ready.sh 2181"
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 5
