@@ -28,6 +28,6 @@ data:
 
     idx=${HONAME##*-}
     idxPlus=$(($idx + 1))
-    echo ${idxplus} > /home/altibase/ZookeeperServer/data/myid
+    echo ${idxPlus} > /home/altibase/ZookeeperServer/data/myid
     
     tail -f /dev/null
