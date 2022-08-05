@@ -24,13 +24,15 @@ data:
     
   entry_point.sh: |
     #!/bin/bash
-    cp /home/altibase/altibase_home/ZookeeperServer/config_map/zoo.cfg /home/altibase/altibase_home/ZookeeperServer/conf/zoo.cfg
+    export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.342.b07-1.el7_9.x86_64/jre
+    export ALTIBASE_HOME=/home/altibase/altibase_home
+
+    cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
 
     idx=${HONAME##*-}
     idxPlus=$(($idx + 1))
     echo ${idxPlus} > /home/altibase/altibase_home/ZookeeperServer/data/myid
     
-    export JAVA_HOME="$JAVA_HOME/../${JDK18_path}"
-    /home/altibase/altibase_home/ZookeeperServer/bin/zkServer.sh --config /home/altibase/altibase_home/ZookeeperServer/conf start"
+    ${ALTIBASE_HOME}/ZookeeperServer/bin/zkServer.sh --config ${ALTIBASE_HOME}/ZookeeperServer/conf start"
     
     tail -f /dev/null
