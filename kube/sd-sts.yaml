@@ -61,7 +61,8 @@ spec:
             - -c
             - "zookeeper-ready 2181"
           initialDelaySeconds: 10
-          timeoutSeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 4
         livenessProbe:
           exec:
             command:
@@ -69,7 +70,8 @@ spec:
             - -c
             - "zookeeper-ready 2181"
           initialDelaySeconds: 10
-          timeoutSeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 4
         volumeMounts:
         - name: sd-dbs
           mountPath: /home/altibase/altibase_home/dbs
