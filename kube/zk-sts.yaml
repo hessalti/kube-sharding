@@ -40,10 +40,11 @@ spec:
       - name: zk
         image: hesslee/sharding
         imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: "2"
+        # This part should be considered in production environment
+        #resources:
+        #  requests:
+        #    memory: "100Mi"
+        #    cpu: "2"
         ports:
         - containerPort: 2181
           name: client
