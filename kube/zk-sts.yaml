@@ -40,7 +40,7 @@ spec:
       - name: zk
         image: hesslee/sharding
         imagePullPolicy: Always
-        # This part should be considered in production environment
+        # This part need to be considered in production environment
         #resources:
         #  requests:
         #    memory: "100Mi"
