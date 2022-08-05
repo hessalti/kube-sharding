@@ -30,4 +30,7 @@ data:
     idxPlus=$(($idx + 1))
     echo ${idxPlus} > /home/altibase/altibase_home/ZookeeperServer/data/myid
     
+    export JAVA_HOME="$JAVA_HOME/../${JDK18_path}"
+    /home/altibase/altibase_home/ZookeeperServer/bin/zkServer.sh --config /home/altibase/altibase_home/ZookeeperServer/conf start"
+    
     tail -f /dev/null
