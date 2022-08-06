@@ -15,9 +15,9 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - name: service-port
+  - name: client
     port: 20300
-  - name: replication-port
+  - name: replication
     port: 20301
   selector:
     app: sd
