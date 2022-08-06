@@ -19,6 +19,8 @@ data:
     export PATH=${ALTIBASE_HOME}/bin:${PATH}
     export LD_LIBRARY_PATH=${ALTIBASE_HOME}/lib:${LD_LIBRARY_PATH};
     export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
+    idx=${HOSTNAME##*-}
+    export MYID=$(($idx + 1))
     
   base_schema.sql: |
     drop table t1 cascade;
@@ -28,8 +30,6 @@ data:
   entry_point.sh: |
     #!/bin/bash
     . /home/altibase/altibase_home/config_map/set_altibase.env
-    idx=${HOSTNAME##*-}
-    idxPlus=$(($idx + 1))
     cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
 
     function db_create()
@@ -50,25 +50,26 @@ data:
     {
         db_create
         server start
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_shard.sql
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_shard.plb
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.sql
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.plb
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_metadata.sql
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_metadata.plb
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_lock.sql
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/dbms_lock.plb
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
-        
-        isql -silent -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/config_map/base_schema.sql
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.sql
+        isql --silent s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.plb
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.sql
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.plb
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.sql
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.plb
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_lock.sql
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_lock.plb
+
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/config_map/base_schema.sql
 
         isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt << EOF
             EXEC DBMS_SHARD.CREATE_META();
-            EXEC DBMS_SHARD.SET_LOCAL_NODE(${idxPlus}, '${HOSTNAME}', '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_PORT_NO}, '${HOSTNAME}', '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_PORT_NO}, '${HOSTNAME}', '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_REPLICATION_PORT_NO} );
+            EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${MYID}', '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_PORT_NO}, '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_PORT_NO}, '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_REPLICATION_PORT_NO} );
             ALTER DATABASE SHARD ADD;
     EOF
  
+        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
+        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
+        
         tail -f /dev/null
     }
  
