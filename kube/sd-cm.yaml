@@ -21,6 +21,7 @@ data:
     export CLASSPATH=${ALTIBASE_HOME}/lib/Altibase.jar:${CLASSPATH};
     idx=${HOSTNAME##*-}
     export MYID=$(($idx + 1))
+    export FQDN=$(hostname -f) #Fully Qualified Domain Name
     
   base_schema.sql: |
     drop table t1 cascade;
@@ -63,7 +64,7 @@ data:
 
         isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt << EOF
             EXEC DBMS_SHARD.CREATE_META();
-            EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${HOSTNAME}', '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_PORT_NO}, '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_PORT_NO}, '${HOSTNAME}.sd.default.svc.cluster.local', ${ALTIBASE_REPLICATION_PORT_NO} );
+            EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${HOSTNAME}', '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_REPLICATION_PORT_NO} );
             ALTER DATABASE SHARD ADD;
     EOF
  
