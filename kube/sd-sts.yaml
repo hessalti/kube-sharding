@@ -54,7 +54,9 @@ spec:
         - /home/altibase/altibase_home/config_map/entry_point.sh
         ports:
         - containerPort: 20300
-          protocol: TCP
+          name: client
+        - containerPort: 20301
+          name: replication
         readinessProbe:
           tcpSocket:
             port: 20300
