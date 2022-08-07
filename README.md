@@ -2,7 +2,6 @@
 - https://github.com/hessalti/kube-sharding
   - account : hessalti
   - repository : kube-sharding
-  - To avoid github.com 25MB file size limit, altibase_home.tgz file is split into multiple files.
 - https://hub.docker.com/r/hesslee/sharding
   - account : hesslee
   - repository : sharding
@@ -12,6 +11,14 @@
   - kubectl install : Client Version: v1.24.0  Kustomize Version: v4.5.4  Server Version: v1.24.1
 - My Windows OS PC
   - Install Docker Engine v20.10.17
+
+### Prepare Altibase tar package
+```
+tar -cvzf altibase_home.tgz altibase_home
+# To avoid github.com 25MB file size limit, altibase_home.tgz file is split into multiple files.
+split -b 20M altibase_home.tgz altibase_home.tgz.s
+# Upload split files to https://github.com/hessalti/kube-sharding/tree/main/docker
+```
 
 ### Build docker image
 ```
