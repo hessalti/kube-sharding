@@ -57,20 +57,20 @@ spec:
           name: client
         - containerPort: 20301
           name: replication
-        readinessProbe:
-          tcpSocket:
-            port: 20300
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 2
-          failureThreshold: 3
-        livenessProbe:
-          tcpSocket:
-            port: 20300
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 2
-          failureThreshold: 3
+        #readinessProbe:
+        #  tcpSocket:
+        #    port: 20300
+        #  initialDelaySeconds: 10
+        #  periodSeconds: 5
+        #  timeoutSeconds: 2
+        #  failureThreshold: 3
+        #livenessProbe:
+        #  tcpSocket:
+        #    port: 20300
+        #  initialDelaySeconds: 10
+        #  periodSeconds: 5
+        #  timeoutSeconds: 2
+        #  failureThreshold: 3
         volumeMounts:
         - name: sd-dbs
           mountPath: /home/altibase/altibase_home/dbs
