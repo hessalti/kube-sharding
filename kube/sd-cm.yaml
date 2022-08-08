@@ -52,7 +52,7 @@ data:
         db_create
         server start
         isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.sql
-        isql --silent s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.plb
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.plb
         isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.sql
         isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.plb
         isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.sql
@@ -62,15 +62,15 @@ data:
 
         isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/config_map/base_schema.sql
 
-        isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt << EOF
+        isql -silent -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
             EXEC DBMS_SHARD.CREATE_META();
             EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${HOSTNAME}', '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_REPLICATION_PORT_NO} );
     EOF
  
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
-        isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
         
-        isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt << EOF
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
             ALTER DATABASE SHARD ADD;
     EOF
 
