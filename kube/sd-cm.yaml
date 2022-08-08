@@ -62,7 +62,7 @@ data:
 
         isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/config_map/base_schema.sql
 
-        isql -silent -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
             EXEC DBMS_SHARD.CREATE_META();
             EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${HOSTNAME}', '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_REPLICATION_PORT_NO} );
     EOF
