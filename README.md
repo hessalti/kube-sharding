@@ -12,12 +12,20 @@
 - My Windows OS PC
   - Install Docker Engine v20.10.17
 
-### Prepare Altibase tar package
+### Prepare altibase_home directory
 ```
-tar -cvzf altibase_home.tgz altibase_home
-# To avoid github.com 25MB file size limit, altibase_home.tgz file is split into multiple files.
-split -b 20M altibase_home.tgz altibase_home.tgz.s
-# Upload split files to https://github.com/hessalti/kube-sharding/tree/main/docker
+rm -rf altibase_home/dbs
+rm -rf altibase_home/logs
+rm -rf altibase_home/xlogs
+rm -rf altibase_home/arch_logs
+rm -rf altibase_home/trc
+rm -rf altibase_home/ZookeeperServer.tar.gz
+rm -rf altibase_home/ZookeeperServer/apache-zookeeper-3.5.6-bin.tar.gz
+
+#tar -cvzf altibase_home.tgz altibase_home
+## To avoid github.com 25MB file size limit, altibase_home.tgz file is split into multiple files.
+#split -b 20M altibase_home.tgz altibase_home.tgz.s
+## Upload split files to https://github.com/hessalti/kube-sharding/tree/main/docker
 ```
 
 ### Build docker image
