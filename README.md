@@ -14,7 +14,6 @@
 
 ### Prepare altibase_home directory
 ```
-cp altibase_home/conf/altibase.properties.shard altibase_home/conf/altibase.properties
 rm -rf altibase_home/dbs
 rm -rf altibase_home/logs
 rm -rf altibase_home/xlogs
