@@ -32,7 +32,8 @@ rm -rf altibase_home/ZookeeperServer/apache-zookeeper-3.5.6-bin.tar.gz
 ### Build docker image
 ```
 set DOCKER_BUILDKIT=0
-docker build --tag hesslee/sharding https://github.com/hessalti/kube-sharding.git#main:docker
+docker build --tag hesslee/sharding .
+#docker build --tag hesslee/sharding https://github.com/hessalti/kube-sharding.git#main:docker
 # Check built image
 docker run -it hesslee/sharding   "/bin/bash"
 docker push hesslee/sharding
