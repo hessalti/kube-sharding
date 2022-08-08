@@ -70,7 +70,9 @@ data:
         isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
         isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -silent -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
         
-        ALTER DATABASE SHARD ADD;
+        isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt << EOF
+            ALTER DATABASE SHARD ADD;
+    EOF
 
         tail -f /dev/null
     }
