@@ -64,6 +64,13 @@ iSQL> select * from sys_shard.nodes_;
 ### Sharding test
 ```
 iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS', 'T1', 'P1 SD-0, P2 SD-1, P3 SD-1, P4 SD-1');
+      insert into t1 values (1000);
+      insert into t1 values (2000);
+      insert into t1 values (3000);
+      insert into t1 values (4000);
+      insert into t1 values (5000);
+      commit;
+      select shard_node_name() POD_NAME, * from t1;
 ```
 
 ### ETC
