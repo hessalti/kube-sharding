@@ -81,6 +81,8 @@ data:
     if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
     then
         db_setup
+    else
+        server start
     fi
 
     tail -f /dev/null
