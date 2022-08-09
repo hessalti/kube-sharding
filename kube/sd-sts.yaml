@@ -94,8 +94,8 @@ spec:
             name: sd-cm
             defaultMode: 0777
             items:
-            - key: "set_altibase.env"
-              path: "set_altibase.env"
+            - key: "set.env"
+              path: "set.env"
             - key: "base_schema.sql"
               path: "base_schema.sql"
             - key: "entry_point.sh"
