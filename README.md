@@ -55,10 +55,10 @@ kubectl get pod -o wide -w
 kubectl exec -it sd-0 -- /bin/bash
 kubectl exec -it sd-1 -- /bin/bash
 iSQL> set vertical on;
-iSQL> select * from sys_shard.LOCAL_META_INFO_;
-iSQL> node[data] select shard_node_name() POD_NAME, * from sys_shard.LOCAL_META_INFO_;
-iSQL> select * from X$ZOOKEEPER_DATA_INFO;
-iSQL> select * from sys_shard.nodes_;
+      select * from sys_shard.LOCAL_META_INFO_;
+      node[data] select shard_node_name() POD_NAME, * from sys_shard.LOCAL_META_INFO_;
+      select * from X$ZOOKEEPER_DATA_INFO;
+      select * from sys_shard.nodes_;
 ```
 
 ### Sharding test
