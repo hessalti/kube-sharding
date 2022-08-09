@@ -52,8 +52,11 @@ kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/k
 ### Check sharding pods
 ```
 kubectl get pod -o wide -w
-kubectl exec -it sd-0 -- /bin/bash
 kubectl exec -it sd-1 -- /bin/bash
+bash# . ./altibase_home/config_map/set.env     
+      ./altibase_home/ZookeeperServer/zkCli.sh -server zk-cs:2181
+      ls -R /zookeeper
+bash# is
 iSQL> set vertical on;
       select * from sys_shard.LOCAL_META_INFO_;
       node[data] select shard_node_name() POD_NAME, * from sys_shard.LOCAL_META_INFO_;
