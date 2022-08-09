@@ -51,13 +51,8 @@ kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/k
 
 ### Check sharding pods
 ```
-kubectl exec -it sharding-0 -- /bin/bash
-kubectl exec -it sharding-1 -- /bin/bash
-```
-
-### Problems
-```
-volumn root mount
+kubectl exec -it sd-0 -- /bin/bash
+kubectl exec -it sd-1 -- /bin/bash
 ```
 
 ### ETC
