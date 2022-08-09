@@ -78,11 +78,20 @@ data:
     EOF
     }
     
+    function db_after()
+    {
+    server start
+    
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+        ALTER DATABASE SHARD FAILBACK;
+    EOF
+    }
+    
     if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
     then
         db_setup
     else
-        server start
+        db_after
     fi
 
     tail -f /dev/null
