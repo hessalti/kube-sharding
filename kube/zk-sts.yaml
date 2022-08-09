@@ -82,8 +82,8 @@ spec:
         volumeMounts:
         - name: zk-data
           mountPath: /home/altibase/altibase_home/ZookeeperServer/data
-        - name: zk-log
-          mountPath: /home/altibase/altibase_home/ZookeeperServer/log
+        - name: zk-datalog
+          mountPath: /home/altibase/altibase_home/ZookeeperServer/datalog
         - name: zk-cm
           mountPath: /home/altibase/altibase_home/ZookeeperServer/config_map
           readOnly: true
@@ -112,7 +112,7 @@ spec:
         requests:
           storage: 100Mi
   - metadata:
-      name: zk-log
+      name: zk-datalog
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: external-storage
