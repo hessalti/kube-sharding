@@ -51,8 +51,17 @@ kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/k
 
 ### Check sharding pods
 ```
+kubectl get pod -o wide -w
 kubectl exec -it sd-0 -- /bin/bash
 kubectl exec -it sd-1 -- /bin/bash
+iSQL> set vertical on;
+iSQL> select * from X$ZOOKEEPER_DATA_INFO;
+iSQL> select * from sys_shard.nodes_;
+```
+
+### Sharding test
+```
+iSQL> EXEC DBMS_SHARD.SET_SHARD_TABLE_SHARDKEY('SYS', 'T1', 'P1 SD-1, P2 SD-2, P3 SD-2, P4 SD-2');
 ```
 
 ### ETC
