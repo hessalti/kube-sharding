@@ -43,7 +43,7 @@ data:
 
     function db_setup()
     {
-    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt << EOF
         startup process;
         CREATE DATABASE mydb INITSIZE=${DB_INITSIZE}M ${DB_ARCH_MODE} CHARACTER SET ${DB_CHARSET} NATIONAL CHARACTER SET ${DB_NATIONAL_CHARSET};
         shutdown abort;
