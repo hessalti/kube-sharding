@@ -55,7 +55,7 @@ kubectl get pod -o wide -w
 kubectl exec -it sd-1 -- /bin/bash
 bash# . ./altibase_home/config_map/set.env     
       ./altibase_home/ZookeeperServer/zkCli.sh -server zk-cs:2181
-      ls -R /zookeeper
+      ls -R /
 bash# is
 iSQL> set vertical on;
       select * from sys_shard.LOCAL_META_INFO_;
