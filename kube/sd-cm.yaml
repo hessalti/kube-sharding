@@ -41,52 +41,49 @@ data:
     cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
     cp ${ALTIBASE_HOME}/config_map/altibase.properties ${ALTIBASE_HOME}/conf/altibase.properties
 
-    function db_create()
+    function db_setup()
     {
-        if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
-        then
-            ADMIN="${ALTIBASE_HOME}/bin/isql -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -sysdba -noprompt"
-            ${ADMIN} << EOF
-                startup process;
-                CREATE DATABASE mydb INITSIZE=${DB_INITSIZE}M ${DB_ARCH_MODE} CHARACTER SET ${DB_CHARSET} NATIONAL CHARACTER SET ${DB_NATIONAL_CHARSET};
-                shutdown abort;
-                quit
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+        startup process;
+        CREATE DATABASE mydb INITSIZE=${DB_INITSIZE}M ${DB_ARCH_MODE} CHARACTER SET ${DB_CHARSET} NATIONAL CHARACTER SET ${DB_NATIONAL_CHARSET};
+        shutdown abort;
+        quit
     EOF
-        fi
-    }
- 
-    prepare_main()
-    {
-        db_create
-        server start
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.sql
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.plb
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.sql
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.plb
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.sql
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.plb
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_lock.sql
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_lock.plb
+    
+    server start
+    
+    # Prepare sharding
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.sql
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard.plb
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.sql
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_shard_get_diagnostics.plb
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.sql
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_metadata.plb
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_lock.sql
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/dbms_lock.plb
+    
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/config_map/base_schema.sql
 
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/config_map/base_schema.sql
-
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
-            EXEC DBMS_SHARD.CREATE_META();
-            EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${HOSTNAME}', '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_REPLICATION_PORT_NO} );
-            EXEC DBMS_SHARD.SET_REPLICATION(0);
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+        EXEC DBMS_SHARD.CREATE_META();
+        EXEC DBMS_SHARD.SET_LOCAL_NODE(${MYID}, '${HOSTNAME}', '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_PORT_NO}, '${FQDN}', ${ALTIBASE_REPLICATION_PORT_NO} );
+        EXEC DBMS_SHARD.SET_REPLICATION(0);
     EOF
  
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.sql
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -f ${ALTIBASE_HOME}/packages/utl_shard_online_rebuild.plb
         
-        isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
-            ALTER DATABASE SHARD ADD;
+    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+        ALTER DATABASE SHARD ADD;
     EOF
-
-        tail -f /dev/null
     }
- 
-    prepare_main $@
+    
+    if [[ ! -f "${ALTIBASE_HOME}/dbs/system001.dbf" ]]
+    then
+        db_setup
+    fi
+
+    tail -f /dev/null
 
   altibase.properties: |
     #=================================================================
