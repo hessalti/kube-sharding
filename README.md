@@ -41,7 +41,7 @@ docker push hesslee/sharding
 ### K8s setup
 ```
 # 1 control node, 2 worker nodes
-minikube start --nodes 3 -p multinode-demo
+minikube start --nodes 4 -p multinode-demo
 kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/base.yaml
 kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/zk-cm.yaml
 kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/zk-sts.yaml
