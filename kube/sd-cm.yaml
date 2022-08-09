@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: sd-cm
 data:
-  set_altibase.env: |
+  set.env: |
     export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.342.b07-1.el7_9.x86_64/jre
     export ALTIBASE_HOME=/home/altibase/altibase_home
     export ALTIBASE_NLS_USE=UTF8
@@ -37,7 +37,7 @@ data:
     
   entry_point.sh: |
     #!/bin/bash
-    . /home/altibase/altibase_home/config_map/set_altibase.env
+    . /home/altibase/altibase_home/config_map/set.env
     cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
     cp ${ALTIBASE_HOME}/config_map/altibase.properties ${ALTIBASE_HOME}/conf/altibase.properties
 
