@@ -3,6 +3,11 @@ kind: ConfigMap
 metadata:
   name: zk-cm
 data:
+  set.env: |
+    export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.342.b07-1.el7_9.x86_64/jre
+    export ALTIBASE_HOME=/home/altibase/altibase_home
+    idx=${HOSTNAME##*-}
+    export MYID=$(($idx + 1))
   zoo.cfg: |
     clientPort=2181
     dataDir=/home/altibase/altibase_home/ZookeeperServer/data
@@ -25,14 +30,11 @@ data:
     
   entry_point.sh: |
     #!/bin/bash
-    export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.342.b07-1.el7_9.x86_64/jre
-    export ALTIBASE_HOME=/home/altibase/altibase_home
+    . /home/altibase/altibase_home/ZookeeperServer/config_map/set.env
 
     cp ${ALTIBASE_HOME}/ZookeeperServer/config_map/zoo.cfg ${ALTIBASE_HOME}/ZookeeperServer/conf/zoo.cfg
 
-    idx=${HOSTNAME##*-}
-    idxPlus=$(($idx + 1))
-    echo ${idxPlus} > ${ALTIBASE_HOME}/ZookeeperServer/data/myid
+    echo ${MYID} > ${ALTIBASE_HOME}/ZookeeperServer/data/myid
 
     ${ALTIBASE_HOME}/ZookeeperServer/bin/zkServer.sh --config ${ALTIBASE_HOME}/ZookeeperServer/conf start
 
