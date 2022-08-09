@@ -93,6 +93,8 @@ spec:
             name: zk-cm
             defaultMode: 0777
             items:
+            - key: "set.env"
+              path: "set.env"
             - key: "zoo.cfg"
               path: "zoo.cfg"
             - key: "zk-ready.sh"
