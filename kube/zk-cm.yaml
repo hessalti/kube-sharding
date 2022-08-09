@@ -11,7 +11,7 @@ data:
   zoo.cfg: |
     clientPort=2181
     dataDir=/home/altibase/altibase_home/ZookeeperServer/data
-    dataLogDir=/home/altibase/altibase_home/ZookeeperServer/log
+    dataLogDir=/home/altibase/altibase_home/ZookeeperServer/datalog
     4lw.commands.whitelist=*
     tickTime=2000
     initLimit=10
