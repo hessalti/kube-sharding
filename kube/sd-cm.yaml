@@ -82,7 +82,7 @@ data:
     {
     server start
     
-    isql -silent -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
+    isql -s 127.0.0.1 -u ${SYS_USER_ID} -p ${SYS_USER_PASSWD} -noprompt << EOF
         ALTER DATABASE SHARD FAILBACK;
     EOF
     }
