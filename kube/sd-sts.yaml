@@ -100,6 +100,8 @@ spec:
               path: "base_schema.sql"
             - key: "entry_point.sh"
               path: "entry_point.sh"
+            - key: "altibase.properties"
+              path: "altibase.properties"
         - name: zk-cm
           configMap:
             name: zk-cm
