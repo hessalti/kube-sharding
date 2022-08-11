@@ -37,11 +37,11 @@ docker push hesslee/sharding
 ```
 # 1 control node, 2 worker nodes
 minikube start --nodes 4 -p multinode-demo
-kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/base.yaml
-kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/zk-cm.yaml
-kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/zk-sts.yaml
-kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/sd-cm.yaml
-kubectl apply -f https://raw.githubusercontent.com/hessalti/kube-sharding/main/kube/sd-sts.yaml
+kubectl apply -f base.yaml
+kubectl apply -f zk-cm.yaml
+kubectl apply -f zk-sts.yaml
+kubectl apply -f sd-cm.yaml
+kubectl apply -f sd-sts.yaml
 ```
 
 ### Check sharding pods
